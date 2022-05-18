@@ -1,0 +1,21 @@
+{
+    "name": "wymarzonylogin/troglo-router",
+    "type": "library",
+    "description": "Simple PHP router",
+    "keywords": ["php", "router"],
+    "homepage": "https://wymarzonylog.in",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Smacznego",
+            "email": "smacznego@wymarzonylog.in",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WymarzonyLogin\\TrogloRouter\\": "src/"
+        }
+    }
+}
+
