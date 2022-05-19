@@ -24,12 +24,25 @@ class Router
         $route = $this->matchRoute($uri, $method);
         
         if (!$route) {
-            throw new Exception("NOT FOUND");
+            throw new \Exception("NOT FOUND");
         }
 
         $instance = new $route->exec[0];
 
-        return call_user_func_array([$instance, $route->exec[1]], []);
+        return call_user_func_array([$instance, $route->exec[1]], [$request]);
+    }
+    
+    public function emit(Response $response)
+    {
+        $status = sprintf(
+            'HTTP/%s %d',
+            $response::PROTOCOL_VERSION,
+            $response->statusCode,
+        );
+        
+        header($status, true, $response->statusCode);
+        
+        echo $response->body;
     }
     
     public function matchRoute($uri, $method): ?Route
