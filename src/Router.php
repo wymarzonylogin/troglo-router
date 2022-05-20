@@ -14,7 +14,7 @@ class Router
     
     public function addRoute(string $method, string $path, array $exec)
     {
-        $this->routes[$path] = new Route($method, $path, $exec);
+        $this->routes[] = new Route($method, $path, $exec);
     }
     
     public function handle(Request $request): Response
@@ -29,7 +29,7 @@ class Router
 
         $instance = new $route->exec[0];
 
-        return call_user_func_array([$instance, $route->exec[1]], [$request]);
+        return call_user_func_array([$instance, $route->exec[1]], [$request, $route->params]);
     }
     
     public function emit(Response $response)
@@ -48,7 +48,8 @@ class Router
     public function matchRoute($uri, $method): ?Route
     {
         foreach ($this->routes as $route) {
-            if ($route->method === $method && $route->path === $uri) {
+            if ($route->method === $method && preg_match($route->path, $uri, $matches)) {
+                $route->params = $matches;
                 return $route;
             }
         }
