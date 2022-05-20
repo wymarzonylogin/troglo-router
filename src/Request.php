@@ -10,6 +10,7 @@ class Request
     public $post;
     public $cookie;
     public $files;
+    public $method;
     
     public function __construct()
     {
@@ -18,7 +19,6 @@ class Request
         $this->post = $_POST;
         $this->cookie = $_COOKIE;
         $this->files = $_FILES;
-        
-        
+        $this->method = $_SERVER['REQUEST_METHOD'];
     }
 }
