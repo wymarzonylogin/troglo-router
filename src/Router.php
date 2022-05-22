@@ -19,7 +19,7 @@ class Router
     
     public function handle(Request $request): Response
     {
-        $uri = $request->server['REQUEST_URI'];
+        $uri = str_replace('?' . $_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']);
         $method = $request->server['REQUEST_METHOD'];
         $route = $this->matchRoute($uri, $method);
         
